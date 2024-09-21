@@ -1,0 +1,81 @@
+strong{
+    letter-spacing: 1px;
+}
+/* Custom styles for better visual appeal */
+        body {
+            background-color: #f8f9fa;
+        }
+        .p-3 {
+            border-bottom: solid 1px #ddd;
+        }
+        .btn-success {
+            background-color: #2ECC71;
+            border: none;
+        }
+        .berikanGaya {
+            font-style: italic;
+            color: #6c757d;
+            text-decoration: line-through;
+        }
+        .btn-outline-danger {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        h2 {
+            color: #007bff;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 32px;
+        }
+        h4 {
+            color: rgb(53, 73, 94);
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        h5 {
+            color: #4d9df3;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+
+        }
+        /* Flexbox for buttons */
+        .button-group {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            overflow-x: auto;
+        }
+        /* Styling the scroll bar */
+        .button-group::-webkit-scrollbar {
+            height: 8px;
+        }
+        .button-group::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border: white solid 2px;
+            border-radius: 4px;
+        }
+        .button-group::-webkit-scrollbar-track {
+            background-color: #f1eeee;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .col-2, .col-6, .col-7, .col-9 {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .button-group {
+                gap: 5px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            h4 {
+                font-size: 20px;
+            }
+        }
