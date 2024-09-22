@@ -20,7 +20,7 @@
                         <!-- Input waktu mulai -->
                         <div class="col-2">
                             <select v-model="startTime" class="form-control">
-                                <option disabled value="">Start time</option>
+                                <option disabled value="">Waktu mulai</option>
                                 <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
                             </select>
                         </div>
@@ -28,19 +28,19 @@
                         <!-- Input waktu akhir -->
                         <div class="col-2">
                             <select v-model="endTime" class="form-control">
-                                <option disabled value="">End time</option>
+                                <option disabled value="">Waktu akhir</option>
                                 <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
                             </select>
                         </div>
 
                         <!-- Input tugas aktivitas -->
                         <div class="col-6">
-                            <input v-model="newActivity" class="form-control" placeholder="New Activity">
+                            <input v-model="newActivity" class="form-control" placeholder="Aktivitas baru">
                         </div>
 
                         <!-- Tombol tambahkan -->
                         <div class="col-2">
-                            <button @click="addTodoList" class="btn btn-primary form-control" :disabled="!canAdd">Add</button>
+                            <button @click="addTodoList" class="btn btn-primary form-control" :disabled="!canAdd">Tambah</button>
                         </div>
                     </div>
                 </div>
