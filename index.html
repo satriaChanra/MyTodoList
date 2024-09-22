@@ -20,7 +20,7 @@
                         <!-- Input waktu mulai -->
                         <div class="col-2">
                             <select v-model="startTime" class="form-control">
-                                <option disabled value="">Waktu mulai</option>
+                                <option disabled value="">Start time</option>
                                 <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
                             </select>
                         </div>
@@ -28,7 +28,7 @@
                         <!-- Input waktu akhir -->
                         <div class="col-2">
                             <select v-model="endTime" class="form-control">
-                                <option disabled value="">Waktu akhir</option>
+                                <option disabled value="">End time</option>
                                 <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
                             </select>
                         </div>
