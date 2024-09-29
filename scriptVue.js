@@ -3,8 +3,7 @@ const app = Vue.createApp({
         return {
             // Database aktivitas
             database: [
-                { text: "Belajar HTML", start: "07:00 AM", end: "08:00 AM", done: false },
-                { text: "Belajar CSS", start: "08:00 AM", end: "09:00 AM", done: false }
+                { text: "satria is learning", start: "07:00 AM", end: "08:00 AM", done: false }
             ],
 
             // v-model untuk input
