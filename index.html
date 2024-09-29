@@ -1,121 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List dengan Login</title>
+    <title>Aplikasi Todo List dengan Vue.js</title>
     <script src="https://unpkg.com/vue@3"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
-
-<body>
+<body class="light-mode">
     <div id="app">
-        <div class="container">
-            <!-- Halaman Login -->
-            <div v-if="currentPage === 'login' && !isLoggedIn"
-                class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
-                <h2 class="text-center">Login App Todo List</h2>
-                <div class="mt-4" style="width: 100%; max-width: 400px;">
-                    <input v-model="loginUsername" class="form-control mb-3" placeholder="Username" type="text">
-                    <input v-model="loginId" class="form-control mb-3" placeholder="ID" type="number" min="10000">
-                    <!-- Type number -->
-                    <button @click="login" class="btn btn-primary w-100"
-                        :disabled="loginId.toString().length < 5">Login</button>
-                    <!-- Tombol dinonaktifkan jika ID kurang dari 5 digit -->
-                    <button @click="switchPage('register')" class="btn btn-secondary w-100 mt-3">Buat Akun</button>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark" >
+            <div class="container-fluid" >
+                <a class="navbar-brand" href="#">Todo App</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button @click="toggleDarkMode" class="btn btn-secondary me-2">Dark Mode</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
 
-            <!-- Halaman Register -->
-            <div v-if="currentPage === 'register' && !isLoggedIn"
-                class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
-                <h2 class="text-center">Buat Akun</h2>
-                <div class="mt-4" style="width: 100%; max-width: 400px;">
-                    <input v-model="registerUsername" class="form-control mb-3" placeholder="Username" type="text">
-                    <input v-model="registerId" class="form-control mb-3" placeholder="ID (Minimal 5 Digit)"
-                        type="number" min="10000"> <!-- Type number -->
-                    <button @click="register" class="btn btn-primary w-100"
-                        :disabled="registerId.toString().length < 5">Buat Akun</button>
-                    <!-- Tombol dinonaktifkan jika ID kurang dari 5 digit -->
-                    <button @click="switchPage('login')" class="btn btn-secondary w-100 mt-3">Kembali ke Login</button>
-                </div>
-            </div>
+        <div class="container mt-5">
+            <h2 class="text-center animate__animated animate__bounceIn">Aplikasi Todo List</h2>
 
-            <!-- Halaman Todo List jika sudah login -->
-            <div v-if="isLoggedIn">
-                <h2 class="mt-5 text-center">Todo List - {{ currentUser.username }}</h2>
+            <div class="row justify-content-center">
+                <div class="col-9 mt-4">
+                    <div class="row">
+                        <!-- Input waktu mulai -->
+                        <div class="col-2">
+                            <select v-model="startTime" class="form-control">
+                                <option disabled value="">Start time</option>
+                                <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
+                            </select>
+                        </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-9 mt-4">
-                        <div class="row">
-                            <!-- Input waktu mulai -->
-                            <div class="col-2">
-                                <select v-model="startTime" class="form-control">
-                                    <option disabled value="">Start time</option>
-                                    <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
-                                </select>
-                            </div>
+                        <!-- Input waktu akhir -->
+                        <div class="col-2">
+                            <select v-model="endTime" class="form-control">
+                                <option disabled value="">End time</option>
+                                <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
+                            </select>
+                        </div>
 
-                            <!-- Input waktu akhir -->
-                            <div class="col-2">
-                                <select v-model="endTime" class="form-control">
-                                    <option disabled value="">End time</option>
-                                    <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
-                                </select>
-                            </div>
+                        <!-- Input tugas aktivitas -->
+                        <div class="col-6">
+                            <input v-model="newActivity" class="form-control" placeholder="New Activity">
+                        </div>
 
-                            <!-- Input tugas aktivitas -->
-                            <div class="col-6">
-                                <input v-model="newActivity" class="form-control" placeholder="New Activity">
-                            </div>
-
-                            <!-- Tombol tambahkan -->
-                            <div class="col-2">
-                                <button @click="addTodoList" class="btn btn-primary form-control"
-                                    :disabled="!canAdd">Add</button>
-                            </div>
+                        <!-- Tombol tambahkan -->
+                        <div class="col-2">
+                            <button @click="addTodoList" class="btn btn-primary form-control" :disabled="!canAdd">Add</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Daftar aktivitas -->
-                <div class="row justify-content-center">
-                    <div class="col-7 mt-5">
-                        <h4 class="text-center">Daftar Tugas :</h4>
+            <!-- Daftar aktivitas -->
+            <div class="row justify-content-center">
+                <div class="col-7 mt-5">
+                    <h4 class="text-center">Daftar Tugas :</h4>
 
-                        <transition-group name="fade" tag="div">
-                            <div v-for="(isiData, id) in currentUser.todos" :key="id"
-                                class="p-3 d-flex align-items-center justify-content-between">
-                                <div>
-                                    <strong>{{ id + 1 }}. </strong> <!-- Nomor urut -->
-                                    <span :class="{ 'text-decoration-line-through': isiData.done }">
-                                        {{ isiData.text }} | {{ isiData.start }} - {{ isiData.end }}
-                                    </span>
-                                </div>
-
-                                <div>
-                                    <!-- Tombol Selesai (Done) -->
-                                    <button class="btn btn-success me-2" @click="toggleDone(id)">
-                                        {{ isiData.done ? "Selesai" : "Done" }}
-                                    </button>
-
-                                    <!-- Tombol Edit -->
-                                    <button class="btn btn-warning me-2" @click="editTodoList(id)">Edit</button>
-
-                                    <!-- Tombol Hapus -->
-                                    <button class="btn btn-outline-danger" @click="confirmDelete(id)">Delete</button>
-                                </div>
+                    <transition-group name="fade" tag="div">
+                        <div v-for="(isiData, id) in database" :key="id" class="p-3 d-flex align-items-center justify-content-between border-bottom">
+                            <div>
+                                <strong>{{ id + 1 }}. </strong>
+                                <!-- Menambahkan kelas 'completed' jika tugas selesai -->
+                                <span :class="{ completed: isiData.done }">
+                                    {{ isiData.text }} | {{ isiData.start }} - {{ isiData.end }}
+                                </span>
                             </div>
-                        </transition-group>
-                    </div>
-                </div>
 
-                <!-- Tombol Logout -->
-                <div class="text-center mt-5">
-                    <button @click="logout" class="btn btn-danger">Logout</button>
+                            <div class="button-group">
+                                <!-- Tombol selesai (done) -->
+                                <button class="btn btn-success" @click="tandaiFinish(id)">
+                                    {{ isiData.done ? "Selesai" : "Done" }}
+                                </button>
+
+                                <!-- Tombol edit -->
+                                <button class="btn btn-warning" @click="editTodoList(id)">Edit</button>
+
+                                <!-- Tombol hapus -->
+                                <button class="btn btn-outline-danger" @click="confirmDelete(id)">Delete</button>
+                            </div>
+                        </div>
+                    </transition-group>
                 </div>
             </div>
         </div>
@@ -124,5 +100,4 @@
     <!-- Bootstrap JS untuk modal -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

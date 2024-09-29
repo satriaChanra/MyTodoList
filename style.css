@@ -1,61 +1,171 @@
-
-body {
+ /* Default Light Theme */
+ body.light-mode {
     background-color: #f8f9fa;
+    color: #343a40;
 }
-h2 {
+
+.light-mode h2 {
     color: #007bff;
+}
+
+.light-mode h4 {
+    color: #343a40;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #181a1b;
+    color: #f1f1f1;
+}
+
+.dark-mode h2 {
+    color: #67a3ff;
+}
+
+.dark-mode h4 {
+    color: #f1f1f1;
+}
+
+.dark-mode .form-control {
+    background-color: #2c2f33;
+    color: #f1f1f1;
+    border-color: #444;
+}
+
+.dark-mode input.form-control:focus {
+    border-color: #67a3ff;
+    box-shadow: 0 0 8px rgba(103, 163, 255, 0.5);
+}
+
+.dark-mode .btn-primary {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #6c757d;
+}
+
+/* Custom styles for better visual appeal */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-success {
+    background-color: #2ECC71;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+h2 {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     font-size: 32px;
 }
+
 h4 {
-    color: #343a40;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     font-size: 24px;
 }
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-/* Responsiveness */
-@media (max-width: 576px) {
-    h2 {
-        font-size: 28px;
-    }
-    h4 {
-        font-size: 20px;
-    }
-    .form-control {
-        font-size: 14px;
-    }
-    .btn {
-        font-size: 14px;
-    }
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    .col-9 {
-        flex: 0 0 auto;
-        width: 100%;
-    }
-    .col-7 {
-        flex: 0 0 auto;
-        width: 100%;
-    }
-    .p-3 {
-        padding: 12px;
-    }
+
+/* Flexbox for buttons */
+.button-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
 }
 
+/* Styling the scroll bar */
+.button-group::-webkit-scrollbar {
+    height: 6px;
+}
+
+.button-group::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.button-group::-webkit-scrollbar-track {
+border-radius: 8px;
+    background-color: #e8e2e2;
+}
+
+/* Gaya teks coret untuk item yang selesai */
+.completed {
+    text-decoration: line-through;
+    color: #6c757d; /* Warna abu-abu untuk teks yang sudah selesai */
+}
+
+/* Transition for input fields */
+input.form-control {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Animasi fade-in dan slide untuk list */
 .fade-enter-active, .fade-leave-active {
     transition: all 0.5s ease;
 }
+
 .fade-enter, .fade-leave-to {
     opacity: 0;
     transform: translateY(-20px);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .col-2, .col-6, .col-7, .col-9 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .button-group {
+        gap: 5px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+}
+.navbar {
+    background-color: rgb(98, 132, 246);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color:white;
+    font-size: 900;
 }
